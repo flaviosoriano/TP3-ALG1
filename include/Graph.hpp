@@ -2,43 +2,29 @@
 #define GRAPH_HPP
 
 #include <vector>
+#include <unordered_map>
 #include <string>
 
 using namespace std;
 
-struct Road;
-
-struct City{
-    string name;
-    vector<Road*> roads;
-};
-
 struct Road{
-    City* start;
-    City* end;
+    string start;
+    string end;
     int distance;
-};
 
+    Road(string start, string end, int distance);
+};
 
 class Graph{
 private:
-    vector<City> cities;
+    unordered_map<string,vector<Road>> cities; // used to maintain O(1) access to cities
+    int numCities;
+    int numRoads;
 public:
 
-    Graph(/* args */);
+    Graph(int numCities, int numRoads);
     ~Graph();
 };
-
-Graph::Graph(/* args */){
-}
-
-Graph::~Graph(){
-}
-
-
-
-
-
 
 
 #endif // GRAPH_HPP
