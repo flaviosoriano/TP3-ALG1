@@ -21,9 +21,10 @@ private:
     int numCities;
     int numRoads;
 public:
-
     Graph(int numCities, int numRoads);
     ~Graph();
+
+    void addRoad(string start, string end, int distance);
 };
 
 

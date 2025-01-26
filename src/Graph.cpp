@@ -17,3 +17,9 @@ Graph::Graph(int numCities, int numRoads){
 Graph::~Graph(){
     // Nothing to do here
 }
+
+// Add a road to both the start and end cities, as roads are bidirectional
+void Graph::addRoad(string start, string end, int distance){
+    this->cities[start].push_back(Road(start, end, distance));
+    this->cities[end].push_back(Road(end, start, distance));
+}
