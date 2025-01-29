@@ -24,7 +24,14 @@ public:
     Graph(int numCities, int numRoads);
     ~Graph();
 
+    unordered_map<string,vector<Road>> getCities();
+    int getNumCities();
+    int getNumRoads();
+
+
     void addRoad(string start, string end, int distance);
+
+    void BruteForce();
 };
 
 

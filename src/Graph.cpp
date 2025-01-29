@@ -1,4 +1,8 @@
 #include "Graph.hpp"
+#include "Algorithms.hpp"
+#include <climits>
+#include <iostream>
+
 
 Road::Road(string start, string end, int distance){
     this->start = start;
@@ -15,11 +19,35 @@ Graph::Graph(int numCities, int numRoads){
 }
 
 Graph::~Graph(){
-    // Nothing to do here
+}
+
+unordered_map<string,vector<Road>> Graph::getCities(){
+    return this->cities;
+}
+
+int Graph::getNumCities(){
+    return this->numCities;
+}
+
+int Graph::getNumRoads(){
+    return this->numRoads;
 }
 
 // Add a road to both the start and end cities, as roads are bidirectional
 void Graph::addRoad(string start, string end, int distance){
     this->cities[start].push_back(Road(start, end, distance));
     this->cities[end].push_back(Road(end, start, distance));
+}
+
+// Recursive helper function for BruteForce
+void NextPermutation(){
+
+}
+
+void Graph::BruteForce(){
+    pair<vector<string>, int> minPath = Algorithms::BruteForce(*this);
+    cout << minPath.second << endl;
+    for (auto city : minPath.first){
+        cout << city << endl;
+    }
 }
