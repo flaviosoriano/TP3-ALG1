@@ -1,5 +1,5 @@
 #include "Graph.hpp"
-#include "Algorithms.hpp"
+#include "Traveling_Salesman.hpp"
 #include <climits>
 #include <iostream>
 
@@ -37,17 +37,4 @@ int Graph::getNumRoads(){
 void Graph::addRoad(string start, string end, int distance){
     this->cities[start].push_back(Road(start, end, distance));
     this->cities[end].push_back(Road(end, start, distance));
-}
-
-// Recursive helper function for BruteForce
-void NextPermutation(){
-
-}
-
-void Graph::BruteForce(){
-    pair<vector<string>, int> minPath = Algorithms::BruteForce(*this);
-    cout << minPath.second << endl;
-    for (auto city : minPath.first){
-        cout << city << endl;
-    }
 }

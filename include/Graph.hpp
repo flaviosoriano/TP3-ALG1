@@ -30,8 +30,6 @@ public:
 
 
     void addRoad(string start, string end, int distance);
-
-    void BruteForce();
 };
 
 

@@ -1,4 +1,8 @@
-/Exemplos
+/Casos_teste
+/.vscode
+
+#Valgrind analysis
+valgrind-out.txt
 
 # Prerequisites
 *.d

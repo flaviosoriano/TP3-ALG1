@@ -1,4 +1,5 @@
 #include "Graph.hpp"
+#include "Traveling_Salesman.hpp"
 #include <iostream>
 
 int main(){
@@ -15,7 +16,9 @@ int main(){
         graph.addRoad(start, end, distance);
     }
 
-    graph.BruteForce();
+    //Traveling_Salesman::BruteForce(graph);
+    Traveling_Salesman::Greedy(graph);
+    Traveling_Salesman::DynamicProgramming(graph);
     
 
     return 0;
