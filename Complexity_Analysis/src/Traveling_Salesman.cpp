@@ -4,6 +4,18 @@
 #include <iostream>
 #include "Graph.hpp"
 #include <math.h>
+#include <sys/resource.h>
+#include <chrono>
+
+/*
+    Get the memory usage of the program
+    @return long: The memory usage in KB
+*/
+long getMemoryUsage() {
+    struct rusage usage;
+    getrusage(RUSAGE_SELF, &usage);
+    return usage.ru_maxrss; 
+}
 
 int factorial(int n){
     if (n == 0){
@@ -78,6 +90,10 @@ void Traveling_Salesman::TestPermutation(Graph &graph, vector<string> &cityNames
     @param Graph &graph: A complete graph of cities and roads
 */
 void Traveling_Salesman::BruteForce(Graph &graph){
+
+    auto start = std::chrono::high_resolution_clock::now();
+    long startMem = getMemoryUsage();
+
     int minDistance = INT_MAX;
     vector<string> minPath;
 
@@ -87,6 +103,14 @@ void Traveling_Salesman::BruteForce(Graph &graph){
         cityNames.push_back(city.first);
     }
     TestPermutation(graph, cityNames, cityNames, minPath, minDistance, 0, (int)cityNames.size()-1);
+
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = end - start;
+    long endMem = getMemoryUsage();
+
+    cout << "Memory: " << endMem - startMem << " KB" << endl;
+    cout << "Time: " << elapsed.count() << " seconds" << endl;
 
     printMinPath(minPath, minDistance);
 }
@@ -137,6 +161,9 @@ int Traveling_Salesman::Cost(int mask, int addPosition, int n, vector<vector<int
 */
 void Traveling_Salesman::DynamicProgramming(Graph &graph){
 
+    auto start = std::chrono::high_resolution_clock::now();
+    long startMem = getMemoryUsage();
+
     unordered_map<string, vector<Road>> cities = graph.getCities();
     int n = graph.getNumCities();
 
@@ -184,6 +211,15 @@ void Traveling_Salesman::DynamicProgramming(Graph &graph){
         mask = mask | (1 << nextCity);
         position = nextCity;
     }   
+
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = end - start;
+    long endMem = getMemoryUsage();
+
+    cout << "Memory: " << endMem - startMem << " KB" << endl;
+    cout << "Time: " << elapsed.count() << " seconds" << endl;
+
     printMinPath(path, minCost);
 }
 
@@ -192,6 +228,9 @@ void Traveling_Salesman::DynamicProgramming(Graph &graph){
     @param Graph &graph: A complete graph of cities and roads
 */
 void Traveling_Salesman::Greedy(Graph &graph){
+
+    auto start = std::chrono::high_resolution_clock::now();
+    long startMem = getMemoryUsage();
 
     unordered_map<string, vector<Road>> cities = graph.getCities();
     vector<string> shortestPath;
@@ -233,6 +272,14 @@ void Traveling_Salesman::Greedy(Graph &graph){
         }
     }
     distance += lastRoadDistance;
+
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = end - start;
+    long endMem = getMemoryUsage();
+
+    cout << "Memory: " << endMem - startMem << " KB" << endl;
+    cout << "Time: " << elapsed.count() << " seconds" << endl;
 
    printMinPath(shortestPath, distance);
 }
