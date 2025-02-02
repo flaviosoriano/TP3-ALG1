@@ -5,6 +5,8 @@
 int main(){
 
     int numCities = 0, numRoads = 0;
+    char choosenMethod;
+    std::cin >> choosenMethod;
     std::cin >> numCities >> numRoads;
 
     Graph graph(numCities, numRoads);
@@ -16,10 +18,23 @@ int main(){
         graph.addRoad(start, end, distance);
     }
 
-    //Traveling_Salesman::BruteForce(graph);
-    Traveling_Salesman::Greedy(graph);
-    Traveling_Salesman::DynamicProgramming(graph);
-    
+    switch (choosenMethod)
+    {
+    case 'b':
+        Traveling_Salesman::BruteForce(graph);  
+        break;
+
+    case 'd':
+        Traveling_Salesman::DynamicProgramming(graph);
+        break;
+        
+    case 'g':
+        Traveling_Salesman::Greedy(graph);
+        break;
+
+    default:
+        break;
+    }
 
     return 0;
 }

@@ -12,6 +12,11 @@ int factorial(int n){
     return n * factorial(n-1);
 }
 
+/*
+    Print the minimum path and the distance
+    @param vector<string> minPath: The minimum path
+    @param int minPathDist: The total distance of the minimum path
+*/
 void Traveling_Salesman::printMinPath(vector<string> minPath, int minPathDist){
     cout << minPathDist << endl;
     for(auto city : minPath){
@@ -86,8 +91,16 @@ void Traveling_Salesman::BruteForce(Graph &graph){
     printMinPath(minPath, minDistance);
 }
 
-
-int Cost(int mask, int addPosition, int n, vector<vector<int>> &graphMatrix, vector<vector<int>> &dpMatrix, vector<vector<int>>& parentMatrix){
+/*
+    Recursive function to calculate the cost of the path
+    @param int mask: The mask, bit-wise codification, of visited cities
+    @param int addPosition: The current city
+    @param int n: The number of cities
+    @param vector<vector<int>> &graphMatrix: The graph matrix
+    @param vector<vector<int>> &dpMatrix: The dynamic programming matrix
+    @param vector<vector<int>> &parentMatrix: The parent matrix
+*/
+int Traveling_Salesman::Cost(int mask, int addPosition, int n, vector<vector<int>> &graphMatrix, vector<vector<int>> &dpMatrix, vector<vector<int>>& parentMatrix){
 
     //If all cities were visited
     if(mask == (1 << n)-1){
@@ -118,9 +131,10 @@ int Cost(int mask, int addPosition, int n, vector<vector<int>> &graphMatrix, vec
     dpMatrix[mask][addPosition] = minCost;
     return dpMatrix[mask][addPosition];
 }
-
-
-
+/*
+    Dynamic Programming Method - Held-Karp Algorithm
+    @param Graph &graph: A complete graph of cities and roads
+*/
 void Traveling_Salesman::DynamicProgramming(Graph &graph){
 
     unordered_map<string, vector<Road>> cities = graph.getCities();
